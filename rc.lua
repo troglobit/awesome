@@ -78,6 +78,7 @@ awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'Synaptics Edge S
 awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'Synaptics Tap Time' 0")
 awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'libinput Tapping Enabled' 1")
 awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'libinput Natural Scrolling Enabled' 1")
+awful.spawn.with_shell("xscreensaver -no-splash")
 
 -- }}}
 
@@ -104,7 +105,8 @@ local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "emacs"
 local browser      = "firefox"
 local guieditor    = "emacs"
-local scrlocker    = "slock"
+--local scrlocker    = "slock"
+local scrlocker    = "xscreensaver-command -lock"
 local dialog       = os.getenv("HOME") .. "/.config/awesome/ctrl-alt-del.py"
 
 awful.util.terminal = terminal
@@ -255,6 +257,10 @@ globalkeys = my_table.join(
 --              {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
+    awful.key({}, "Pause",                function () os.execute(scrlocker) end,
+              {description = "lock screen", group = "hotkeys"}),
+    awful.key({}, "XF86ScreenSaver",      function () os.execute(scrlocker) end,
+              {description = "lock screen", group = "hotkeys"}),
     awful.key({ modkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
