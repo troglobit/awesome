@@ -72,13 +72,23 @@ awful.spawn.with_shell(
     'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
 )
 --]]
-awful.spawn.with_shell("xset dpms 5 2 2")
-awful.spawn.with_shell("setxkbmap -layout se -option ctrl:nocaps")
-awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'Synaptics Edge Scrolling' 0 0 0")
-awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'Synaptics Tap Time' 0")
-awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'libinput Tapping Enabled' 1")
-awful.spawn.with_shell("xinput set-prop 'Synaptics TM3075-002' 'libinput Natural Scrolling Enabled' 1")
+
 awful.spawn.with_shell("xscreensaver -no-splash")
+
+os.execute("xset dpms 5 2 2")
+os.execute("setxkbmap -layout se -option ctrl:nocaps")
+
+xinput = io.popen("xinput list --short")
+for line in xinput:lines() do
+	if (line:match(".*Synaptics.*")) then
+		id = line:match(".*id=([0-9]*).*slave.*")
+		os.execute(string.format("xinput set-prop %d 'libinput Tapping Enabled' 1", id))
+		os.execute(string.format("xinput set-prop %d 'libinput Natural Scrolling Enabled' 1", id))
+		os.execute(string.format("xinput set-prop %d 'Synaptics Edge Scrolling' 0 0 0", id))
+		os.execute(string.format("xinput set-prop %d 'Synaptics Tap Time' 0", id))
+	end
+end
+xinput:close()
 
 -- }}}
 
