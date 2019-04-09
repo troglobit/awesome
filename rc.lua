@@ -75,8 +75,9 @@ awful.spawn.with_shell(
 
 awful.spawn.with_shell("xscreensaver -no-splash")
 
-os.execute("xset dpms 5 2 2")
+os.execute("xset dpms 0 360 420")
 os.execute("setxkbmap -layout se -option ctrl:nocaps")
+os.execute("xcompmgr -s -t-5 -l-5 -r4.2 -o.55 &")
 
 xinput = io.popen("xinput list --short")
 for line in xinput:lines() do
