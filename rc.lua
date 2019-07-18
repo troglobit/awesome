@@ -77,8 +77,10 @@ awful.spawn.with_shell(
 os.execute("xset -dpms")
 os.execute("setxkbmap -layout se -option ctrl:nocaps")
 os.execute("xcompmgr -s -t-5 -l-5 -r4.2 -o.55 &")
+os.execute("/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &")
 
 awful.spawn.with_shell("xscreensaver -no-splash")
+awful.spawn.with_shell("/usr/lib/gnome-settings-daemon/gsd-xsettings")
 
 xinput = io.popen("xinput list --short")
 for line in xinput:lines() do
