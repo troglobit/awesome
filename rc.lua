@@ -409,9 +409,9 @@ globalkeys = my_table.join(
               {description = "show weather", group = "widgets"}),
 --]]
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("light -A 10") end,
+    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("backlight up") end,
               {description = "+10%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("light -U 10") end,
+    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("backlight down") end,
               {description = "-10%", group = "hotkeys"}),
 
     -- Switch monitors
